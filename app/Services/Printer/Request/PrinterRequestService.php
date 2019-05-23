@@ -4,6 +4,8 @@
 namespace App\Services\Printer\Request;
 
 
+use App\Exceptions\CommunicationException;
+use App\Exceptions\ConnectionException;
 use App\Services\Server\ServerCommunicationService;
 
 class PrinterRequestService
@@ -28,7 +30,19 @@ class PrinterRequestService
     public function handleRequest(array $params)
     {
         // Смотришь ServerCommunicationService
-        $this->communicationService->connect();
+        try {
+            // подключаемся к серваку
+            $this->communicationService->connect();
+            $this->communicationService->analyzeParams($params);
+            // отправляем на него запрос
+            $this->communicationService->sendRequest();
+        } catch (CommunicationException $communicationException) {
+
+        } catch (ConnectionException $connectionException) {
+            echo 'pezda, ne mogu sdelat connect';
+        } catch (\InvalidArgumentException $invalidArgumentException) {
+            echo 'huevie argumenti';
+        }
     }
 
     public function getResponseParams()
