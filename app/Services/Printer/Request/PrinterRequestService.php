@@ -27,6 +27,7 @@ class PrinterRequestService
     // ещё класс PriterRequestServiceProvider можешь скопировать
     public function handleRequest(array $params)
     {
+        // Смотришь ServerCommunicationService
         $this->communicationService->connect();
     }
 
