@@ -15,6 +15,10 @@ class MainController extends Controller
         $this->requestService = $requestService;
     }
 
+    // пишешь про контроллеры
+    // requestService->handleRequest
+    // тут мы вызываем функцию обработки и кидаем туда параметры вместе с файлами
+    // открываешь класс PrinterRequestService
     public function index(Request $request)
     {
         $this->requestService->handleRequest($request->all());

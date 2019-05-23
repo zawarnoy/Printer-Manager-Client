@@ -4,10 +4,19 @@
 namespace App\Services\Printer\Request;
 
 
+use App\Services\Server\ServerCommunicationService;
+
 class PrinterRequestService
 {
-    public function __construct()
+
+    protected $responseParams;
+    protected $communicationService;
+
+
+    public function __construct(ServerCommunicationService $communicationService)
     {
+        $this->communicationService = $communicationService;
+        $this->responseParams = [];
     }
 
 
@@ -18,11 +27,11 @@ class PrinterRequestService
     // ещё класс PriterRequestServiceProvider можешь скопировать
     public function handleRequest(array $params)
     {
-
+        $this->communicationService->connect();
     }
 
     public function getResponseParams()
     {
-        return [];
+        return $this->responseParams;
     }
 }
